@@ -1,0 +1,66 @@
+﻿@using PathFinder.Domain;
+
+@model List<Node>
+
+@{
+    ViewBag.Title = "Path Finder";
+}
+<h1>Path Finder</h1>
+<div id="cy"></div>
+<main>
+
+    <div class="row">
+        <section class="col-md-6" aria-labelledby="gettingStartedTitle">
+            <h2 id="gettingStartedTitle">From</h2>
+            <p>
+                <select name="startNodes" id="startNodes">
+                    <option value="">---Select---</option>
+                    @foreach (var node in Model)
+                    {
+                        <option value="@node.GetName()">@node.GetName()</option>
+                    }
+                </select>
+            </p>
+            <p></p>
+        </section>
+        <section class="col-md-6" aria-labelledby="librariesTitle">
+            <h2 id="gettingStartedTitle">To</h2>
+            <p>
+                <select name="endNodes" id="endNodes">
+                    <option value="">---Select---</option>
+                    @foreach (var node in Model)
+                    {
+                        <option value="@node.GetName()">@node.GetName()</option>
+                    }
+                </select>
+            </p>
+            <p><a class="btn btn-outline-dark" id="btnCalculate">Find Route</a></p>
+        </section>
+        <section class="col-md-12" aria-labelledby="librariesTitle">
+            <div id="divResult">
+
+            </div>
+        </section>
+    </div>
+</main>
+
+@section Scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $("#btnCalculate").on("click", function () {
+                var source = $("#startNodes").val();
+                var destination = $("#endNodes").val();
+                $.ajax({
+                    url: "/Home/FindRoute",
+                    data: { source: source, destination: destination },
+                    success: function (result) {
+                        alert(result);
+                        $("#divResult").html(result);
+                    }
+                });  
+            });
+        });
+    </script>
+}
