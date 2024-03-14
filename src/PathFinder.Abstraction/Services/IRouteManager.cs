@@ -1,6 +1,7 @@
-﻿using PathFinder.Domain;
+﻿using PathFinder.Application.Services;
+using PathFinder.Domain;
 
-namespace PathFinder.Application.Services
+namespace PathFinder.Abstraction.Services
 {
     public interface IRouteManager
     {

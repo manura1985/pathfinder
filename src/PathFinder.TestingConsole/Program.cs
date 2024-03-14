@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using PathFinder.Abstraction.Services;
 using PathFinder.Application.Services;
 using PathFinder.DataSeeder;
 using System;
@@ -7,7 +8,7 @@ using System.Text;
 
 namespace PathFinder.TestingConsole
 {
-    internal class Program
+    public class Program
     {
         static void Main(string[] args)
         {
@@ -18,7 +19,7 @@ namespace PathFinder.TestingConsole
 
             var map = mapGenerator.SeedMap();
 
-            var nodes = map.GetNodes();
+            var nodes = map;
 
             var source = nodes.Where(i => i.GetName() == "D").First();
             var destination = nodes.Where(i => i.GetName() == "B").First();

@@ -1,4 +1,4 @@
-﻿using PathFinder.Application.Services;
+﻿using PathFinder.Abstraction.Services;
 using PathFinder.DataSeeder;
 using PathFinder.Web.Models.ShortestPaths;
 using System.Linq;
@@ -22,7 +22,7 @@ namespace PathFinder.Web.Controllers
         {
             var map = _mapGenerator.SeedMap();
 
-            var nodes = map.GetNodes();
+            var nodes = map;
 
             return View(nodes);
         }
@@ -31,10 +31,11 @@ namespace PathFinder.Web.Controllers
         {
             var map = _mapGenerator.SeedMap();
 
-            var nodes = map.GetNodes();
+            var nodes = map;
 
-            var sourceName = nodes.Where(i => i.GetName() == source).First();
-            var destinationNode = nodes.Where(i => i.GetName() == destination).First();
+            // ToDo: Should validate the request and return a message as a response to display in the UI
+            var sourceName = nodes.First(i => i.GetName() == source);
+            var destinationNode = nodes.First(i => i.GetName() == destination);
 
             var route = _routeManager.GetOptimalRoute(map, sourceName, destinationNode);
 
@@ -46,6 +47,7 @@ namespace PathFinder.Web.Controllers
                 Distance = route.Distance,
             };
 
+            // ToDo: Is this view logic
             var routeBuilder = new StringBuilder($"Most optimal route from {route.Source} to {route.Destination} is : ");
 
             var optimalRoute = route.OptimalRoute.ToList();

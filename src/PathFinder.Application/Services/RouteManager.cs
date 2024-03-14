@@ -1,4 +1,5 @@
-﻿using PathFinder.Domain;
+﻿using PathFinder.Abstraction.Services;
+using PathFinder.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,16 +13,12 @@ namespace PathFinder.Application.Services
         private Dictionary<Node, Node> _optimalRoutes;
         private Dictionary<Node, int> _optimalDistances;
 
-        public RouteManager()
-        {
-        }
-
         public Response GetOptimalRoute(Map map, Node source, Node destination)
         {
             ValidateRequest(map, source, destination);
 
             _map = map;
-            _nodes = _map.GetNodes();
+            _nodes = _map;
             SetDefaultDistances();
             SetDefaultRoutes();
 
@@ -114,7 +111,7 @@ namespace PathFinder.Application.Services
         {
             var distances = new Dictionary<Node, int>();
 
-            foreach (Node n in _map.GetNodes())
+            foreach (Node n in _map)
             {
                 distances.Add(n, int.MaxValue);
             }
@@ -126,7 +123,7 @@ namespace PathFinder.Application.Services
         {
             var routes = new Dictionary<Node, Node>();
 
-            foreach (Node n in _map.GetNodes())
+            foreach (Node n in _map)
             {
                 routes.Add(n, null);
             }

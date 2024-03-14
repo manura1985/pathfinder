@@ -15,12 +15,14 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace PathFinder.Web.DependencyResolution {
+namespace PathFinder.Web.DependencyResolution
+{
+    using PathFinder.Abstraction.Services;
     using PathFinder.Application.Services;
     using PathFinder.DataSeeder;
     using StructureMap.Configuration.DSL;
     using StructureMap.Graph;
-	
+
     public class DefaultRegistry : Registry {
         #region Constructors and Destructors
 
